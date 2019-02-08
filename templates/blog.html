@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% if entries|length == 0 %}
+<p><h4>No entries yet.</h4></p>
+<hr />
+{% else %}
+<ul>
+    {% for entry in entries %}
+    
+    <li><h3><strong><a href='/blog?id={{entry.id}}'>{{entry.title}}</a></strong></h3>{{entry.body}}
+        <form method='POST' action="/blog" style="display:inline-block";>
+            <input type="hidden" name="blog-id" value="{{entry.id}}" />
+        </form>
+        <hr />
+    </li>
+    
+    {% endfor %}
+    
+</ul>
+{% endif %}
+{% endblock %}
