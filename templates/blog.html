@@ -9,6 +9,7 @@
 <ul>
     {% for entry in entries %}
     
+    
     <li><h3><strong><a href='/blog?id={{entry.id}}'>{{entry.title}}</a></strong></h3>{{entry.body}}
         <form method='POST' action="/blog" style="display:inline-block";>
             <input type="hidden" name="blog-id" value="{{entry.id}}" />
