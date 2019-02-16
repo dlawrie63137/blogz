@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% if users|length == 0 %}
+<p><h4>No users yet.</h4></p>
+<hr />
+{% else %}
+<ul class='list'>
+    {% for user in users %}
+        
+    <li><h3><strong><a href='/?id={{user.id}}'>{{user.username}}</a></strong></h3>
+        <form method='POST' action="/blog" style="display:inline-block";>
+            <input type="hidden" name="user-id" value="{{user.id}}" />
+        </form>
+    </li>
+    
+    {% endfor %}
+    
+</ul>
+{% endif %}
+{% endblock %}

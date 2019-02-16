@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 
         {% block content %}
-            <form method='post'>
+            <form method='post' class='newpost'>
                 <label>
-                    Title for new blog entry:
+                    Title:
                     <br />
                     <input type='text' name='blog-title' value={{blog_title}}>
                 </label>
@@ -11,14 +11,14 @@
                 <p><h3 class='error'>{{t_error }}</h3></p>
 
                 <label>
-                    New blog entry:
+                    New Post:
                     <br />
                     <textarea name='blog-body' cols='50' rows='10'>{{ blog_body }}</textarea>
                     
                 </label>
-                
-                <p></p>
 
+                <p></p>
+            
                 <input type="submit" value="Add Entry" />
 
                 <p><h3 class='error'>{{b_error }}</h3>

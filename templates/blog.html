@@ -2,23 +2,24 @@
 
 {% block content %}
 
-{% if entries|length == 0 %}
+{% if user|length == 0 %}
 <p><h4>No entries yet.</h4></p>
 <hr />
 {% else %}
 <ul>
-    {% for entry in entries %}
-    
-    
-    <li><h3><strong><a href='/blog?id={{entry.id}}'>{{entry.title}}</a></strong></h3>{{entry.body}}
+    {% for user in user %}
+           
+    <li><h3><strong><a href='/blog?id={{user.user_id}}'>{{user.title}}</a></strong>
+        <h5>Written by: <a href='/blog?user={{user.username}}'>{{user.username}}</a></h5>
+        {{user.body}}
         <form method='POST' action="/blog" style="display:inline-block";>
-            <input type="hidden" name="blog-id" value="{{entry.id}}" />
+            <input type="hidden" name="blog-id" value="{{user.id}}" />
         </form>
         <hr />
     </li>
     
     {% endfor %}
-    
+        
 </ul>
 {% endif %}
 {% endblock %}

@@ -1,7 +1,9 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>{{entry.title}}</h1>
+
+<h1>{{entry.title}}</h1><br />
+<h4 class='left_nav'>Written By: {{poster.username}}</h4>
 <p class='p_body'>{{entry.body}}</p>
 
 

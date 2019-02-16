@@ -7,18 +7,56 @@
             a {padding:10px;}
             li {list-style-type: none;}
             .error {color:red;
-                    font-style: italic;}
+                    font-style: italic;
+                    margin-top: 3%;
+                    margin-left: 6%;
+                    margin-bottom: -1%;}
+            .info {color:red;
+                    margin-left: 6%;}
+            .login {margin-top: 0%;
+                    margin-left: 8%;
+                    padding-top: 0%;}
+            .left_nav {text-align: left;
+                       margin-left: 5%;
+                       margin-bottom: 5%;}
+            .left_nav li {display: inline;}
+            .list {margin-top: 5%;}
+            .newpost {margin-left: 8%;
+                      margin-top: 5%;} 
             .p_body {font-size: 14pt;
-                     margin-left: 20px;}
+                     margin-left: 5%;}
+            .post {text-align: center}
+            .right_nav {text-align: right;
+                        margin-right: 15%;}
+            .right_nav li {float: right;
+                           margin-top: .1%;
+                           margin-right: 0%;}
+            .single {margin-left: 3%;}
         </style>
     </head>
     <body> 
-        <div><br />
-            <a href='/blog'>Main Blog Page</a>
-            <a href='/newpost'>Add A Blog Post</a>
-        </div>
-        <h1>Build A Blog</h1>
-
+        <h1>Blogz</h1>
+        <ul class='right_nav'>
+            <li><a href='/logout'>Logout</a></li>
+            <li><a href='/login'>Login</a></li>
+        </ul>
+        <ul class='left_nav'>
+            <li><a href='/'>Home</a></li>
+            <li><a href='/blog'>All Posts</a></li>
+            <li><a href='/newpost'>New Post</a></li>
+        </ul>
+        
+            {% with messages = get_flashed_messages(with_categories=True) %}
+    
+            <ul>
+            {% for category, message in messages %}
+                <li class='{{category}}'>{{ message }}</li>
+            {% endfor %}
+            </ul>
+    
+            {% endwith %}
+    
+       
         {% block content %}
           
         
