@@ -100,6 +100,7 @@ def signup():
 
         existing_user = User.query.filter_by(username=username).first()
 
+        
         #if user not in db & password good, enter user into db
         if not existing_user:
             new_user = User(username, password)
@@ -121,10 +122,15 @@ def login():
         password = request.form['password']
         user = User.query.filter_by(username=username).first()
         
-        #user not in db, return to login page
-        if not user:
-            flash('User does not exist.', 'error') 
-            return redirect('login')
+        #if user or password field is empty send message
+        if username=="" or password=="":
+            flash('One or more field is empty, please try again.', 'error')
+            return redirect('/login')
+        else:
+            #user not in db, return to login page
+            if not user:
+                flash('User does not exist.', 'error') 
+                return redirect('login')
         
         #everything is good, begin session 
         if user and check_pw_hash(password, user.pw_hash):
@@ -195,7 +201,6 @@ def show_post():
 # End session & redirect to blog page  when user logs off
 @app.route('/logout')
 def logout():
-    print (session['username'])
     del session['username']
     return redirect('/blog')
 
