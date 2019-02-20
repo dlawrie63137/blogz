@@ -2,16 +2,16 @@
 
 {% block content %}
 
-{% if posts|length == 0 %}
+{% if entries|length == 0 %}
 <p><h3 class='left_nav'>{{ user.username }} has no posts.</h3></p>
 <hr />
 {% else %}
 <hr class='single'>
-{% for post in posts %}
+{% for entry in entries %}
 <ul>
-    <li><h1 class='post'>{{post.title}}</h1>
-        <h4 class='post'>Written by: {{user.username}}</h4>
-        <p class='p_body'>{{post.body}}</p>
+    <li><h1 class='post'>{{entry.title}}</h1>
+        <h4 class='post'>Written by: <a href='/blog?user={{user.username}}'>{{user.username}}</a></h4>
+        <p class='p_body'>{{entry.body}}</p>
         <hr>
     </li>
 </ul>

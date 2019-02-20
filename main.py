@@ -43,8 +43,9 @@ def index():
     if request.args.get('id'):
         id=request.args.get('id')
         user=User.query.filter_by(id=id).first()
-        posts=Blog.query.filter_by(user_id=user.id).all()
-        return render_template('singleUser.html', posts=posts, user=user)
+        entries=Blog.query.filter_by(user_id=user.id).all()
+        print('entries is ' + str(len(entries)))
+        return render_template('singleUser.html', entries=entries, user=user)
     
     users = User.query.all()
     return render_template('index.html', users=users)
@@ -171,7 +172,8 @@ def new_post():
             new_blog = Blog(blog_title, blog_body, user)
             db.session.add(new_blog)
             db.session.commit()
-            return redirect('/newpost')
+            id=str(new_blog.id)
+            return redirect('/blog?id=' + id)
     return render_template('newpost.html')
     
 @app.route("/blog", methods=['GET'])
@@ -181,22 +183,20 @@ def show_post():
         id=request.args.get('id')
         entry=Blog.query.filter_by(id=id).first()
         user_id=entry.user_id
-        poster=User.query.filter_by(id=user_id).first()
-        return render_template('post.html', entry=entry, poster=poster)
+        user=User.query.filter_by(id=user_id).first()
+        return render_template('post.html', entry=entry, user=user)
     
     if request.args.get('user'):
         print('did we get here?')
         username=request.args.get('user')
-        poster=User.query.filter_by(username=username).first()
-        user_id=poster.id
-        entry=Blog.query.filter_by(id=user_id).first()
-        return render_template('post.html', entry=entry, poster=poster)
+        user=User.query.filter_by(username=username).first()
+        entries=Blog.query.filter_by(user_id=user.id).all()
+        return render_template('singleUser.html', entries=entries, user=user)
     
-    #entries = Blog.query.all()
     print('Are we stuck here?')
-    user=Blog.query.join(User).add_columns(Blog.user_id, Blog.title, Blog.body, User.id, User.username).filter_by(id=Blog.user_id).all()
-    #poster=User.query.all()
-    return render_template('blog.html', title='Blogz', user=user)#entries=entries,)
+    users=User.query.all()
+    entries=Blog.query.filter_by(user_id=Blog.user_id).all()
+    return render_template('blog.html', title='Blogz', users=users, entries=entries,)
 
 # End session & redirect to blog page  when user logs off
 @app.route('/logout')
